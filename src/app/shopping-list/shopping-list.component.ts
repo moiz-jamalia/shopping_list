@@ -15,5 +15,10 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit() {
     this.ingredients = this.slService.getIngredients();
+    this.slService.ingChanged.subscribe(
+      (ing : Ingredient[]) => {
+        this.ingredients = ing;
+      }
+    );
   }
 }
