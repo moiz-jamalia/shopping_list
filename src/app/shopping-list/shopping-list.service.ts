@@ -14,19 +14,21 @@ export class ShoppingListService {
   }
 
   addIngredient(ing : Ingredient){
-<<<<<<< Updated upstream
-=======
     let shouldAdd: boolean = true;
     let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        ingCopy.amount = Number(value.amount) + Number(ingCopy.amount);
+        let sum = Number(value.amount) + Number(ingCopy.amount);
+        ingCopy.amount = sum;
         shouldAdd = false;
       }
     });
     if(!shouldAdd) return;
->>>>>>> Stashed changes
     this.ingredients.push(ing);
     this.ingChanged.emit(this.ingredients.slice());
+  }
+
+  addIngredients(ing : Ingredient[]) {
+    ing.forEach(value => this.addIngredient(value));
   }
 }

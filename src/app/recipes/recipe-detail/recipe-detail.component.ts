@@ -1,11 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
-<<<<<<< Updated upstream
-=======
 import {RecipeService} from "../recipe.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,22 +10,20 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-<<<<<<< Updated upstream
-  @Input() recipe: Recipe;
-
-  constructor() { }
-=======
   recipe: Recipe;
   id: number;
 
   constructor(private recipeService : RecipeService, private route : ActivatedRoute, private router : Router) { }
->>>>>>> Stashed changes
 
   ngOnInit() {
+    this.route.params.subscribe(
+      (params : Params) => {
+        this.id = +params['id'];
+        this.recipe = this.recipeService.getRecipe(this.id);
+      }
+    );
   }
 
-<<<<<<< Updated upstream
-=======
   onAddToSL() {
     this.recipeService.addIngToSL(this.recipe.ingredients);
   }
@@ -36,5 +31,4 @@ export class RecipeDetailComponent implements OnInit {
   onEditRecipe() {
     this.router.navigate(['edit'], {relativeTo : this.route});
   }
->>>>>>> Stashed changes
 }
