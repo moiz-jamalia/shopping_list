@@ -14,10 +14,12 @@ export class ShoppingListService {
   }
 
   addIngredient(ing : Ingredient){
+    console.log(this.ingredients);
     let shouldAdd: boolean = true;
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        value.amount += +ing.amount;
+        let sum = Number(value.amount) + Number(ing.amount);
+        value.amount = sum;
         shouldAdd = false;
       }
     });
@@ -27,8 +29,7 @@ export class ShoppingListService {
   }
 
   addIngredients(ing : Ingredient[]) {
-    this.ingredients.push(...ing);
-    this.ingChanged.emit(this.ingredients.slice());
+    ing.forEach(value => this.addIngredient(value));
   }
 
   doesIngredientExist(ing : Ingredient) {
