@@ -18,8 +18,7 @@ export class ShoppingListService {
     let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        let sum = Number(value.amount) + Number(ingCopy.amount);
-        ingCopy.amount = sum;
+        ingCopy.amount = Number(value.amount) + Number(ingCopy.amount);
         shouldAdd = false;
       }
     });
