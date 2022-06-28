@@ -31,8 +31,4 @@ export class ShoppingListService {
   addIngredients(ing : Ingredient[]) {
     ing.forEach(value => this.addIngredient(value));
   }
-
-  doesIngredientExist(ing : Ingredient) {
-
-  }
 }
