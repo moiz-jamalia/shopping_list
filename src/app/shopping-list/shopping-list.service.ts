@@ -14,6 +14,14 @@ export class ShoppingListService {
   }
 
   addIngredient(ing : Ingredient){
+    let shouldAdd: boolean = true;
+    this.ingredients.forEach(function (value) {
+      if(value.name == ing.name) {
+        value.amount += +ing.amount;
+        shouldAdd = false;
+      }
+    });
+    if(!shouldAdd) return;
     this.ingredients.push(ing);
     this.ingChanged.emit(this.ingredients.slice());
   }
@@ -21,5 +29,9 @@ export class ShoppingListService {
   addIngredients(ing : Ingredient[]) {
     this.ingredients.push(...ing);
     this.ingChanged.emit(this.ingredients.slice());
+  }
+
+  doesIngredientExist(ing : Ingredient) {
+
   }
 }
