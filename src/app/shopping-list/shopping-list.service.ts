@@ -14,12 +14,12 @@ export class ShoppingListService {
   }
 
   addIngredient(ing : Ingredient){
-    console.log(this.ingredients);
     let shouldAdd: boolean = true;
+    let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        let sum = Number(value.amount) + Number(ing.amount);
-        value.amount = sum;
+        let sum = Number(value.amount) + Number(ingCopy.amount);
+        ingCopy.amount = sum;
         shouldAdd = false;
       }
     });
