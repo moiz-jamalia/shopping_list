@@ -1,33 +1,42 @@
+
+import {Subject} from "rxjs";
+
 import {Ingredient} from "../shared/ingredient.model";
-import {EventEmitter} from "@angular/core";
 
 export class ShoppingListService {
-  ingChanged = new EventEmitter<Ingredient[]>();
+  ingChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
-  private ingredients : Ingredient[] = [
+  private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
   ];
 
-  getIngredients(){
+  getIngredients() {
     return this.ingredients.slice();
   }
+  
+  getIngredient(index : number) {
+    return this.ingredients[index];
+  }
 
-  addIngredient(ing : Ingredient){
-    let shouldAdd: boolean = true;
-    let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
-    this.ingredients.forEach(function (value) {
-      if(value.name == ing.name) {
-        ingCopy.amount = Number(value.amount) + Number(ingCopy.amount);
-        shouldAdd = false;
-      }
-    });
-    if(!shouldAdd) return;
+  addIngredient(ing : Ingredient) {
     this.ingredients.push(ing);
-    this.ingChanged.emit(this.ingredients.slice());
+    this.ingChanged.next(this.ingredients.slice());
   }
 
   addIngredients(ing : Ingredient[]) {
-    ing.forEach(value => this.addIngredient(value));
+    this.ingredients.push(...ing);
+    this.ingChanged.next(this.ingredients.slice());
+  }
+
+  updateIngredient(index : number, NI : Ingredient) {
+    this.ingredients[index] = NI;
+    this.ingChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index : number) {
+    this.ingredients.splice(index, 1);
+    this.ingChanged.next(this.ingredients.slice());
   }
 }
