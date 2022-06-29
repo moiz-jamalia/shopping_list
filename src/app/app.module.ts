@@ -36,4 +36,5 @@ import { RecipeService } from "./recipes/recipe.service";
   providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
