@@ -5,8 +5,8 @@ export class ShoppingListService {
   ingChanged = new EventEmitter<Ingredient[]>();
 
   private ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 10),
+    new Ingredient('Apples', 0, 5),
+    new Ingredient('Tomatoes', 0, 10),
   ];
 
   getIngredients(){
@@ -18,13 +18,13 @@ export class ShoppingListService {
     let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        let sum = Number(value.amount) + Number(ingCopy.amount);
-        ingCopy.amount = sum;
+        let sum = Number(value.shoppingAmount) + Number(ing.amount);
+        value.shoppingAmount = sum;
         shouldAdd = false;
       }
     });
     if(!shouldAdd) return;
-    this.ingredients.push(ing);
+    this.ingredients.push(ingCopy);
     this.ingChanged.emit(this.ingredients.slice());
   }
 
