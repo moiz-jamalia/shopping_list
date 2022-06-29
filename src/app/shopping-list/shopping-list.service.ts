@@ -17,16 +17,14 @@ export class ShoppingListService {
 
   addIngredient(ing : Ingredient){
     let shouldAdd: boolean = true;
-    let ingCopy : Ingredient = new Ingredient(ing.name, ing.amount);
     this.ingredients.forEach(function (value) {
       if(value.name == ing.name) {
-        let sum = Number(value.shoppingAmount) + Number(ing.amount);
-        value.shoppingAmount = sum;
+        value.shoppingAmount = Number(value.shoppingAmount) + Number(ing.amount);
         shouldAdd = false;
       }
     });
     if(!shouldAdd) return;
-    this.ingredients.push(ing);
+    this.ingredients.push(new Ingredient(ing.name, ing.amount, ing.amount));
     this.ingChanged.next(this.ingredients.slice());
   }
 
