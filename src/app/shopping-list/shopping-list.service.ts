@@ -21,13 +21,25 @@ export class ShoppingListService {
   }
 
   addIngredient(ing : Ingredient) {
+    let shouldPush = true;
+    this.ingredients.forEach(value => {
+      if (ing.name == value.name) {
+        let index = this.ingredients.indexOf(value);
+        this.updateIngredient(index, new Ingredient(ing.name, this.ingredients[index].amount + ing.amount));
+        shouldPush = false;
+      }
+    });
+
+    if (!shouldPush) return;
     this.ingredients.push(ing);
     this.ingChanged.next(this.ingredients.slice());
   }
 
+
   addIngredients(ing : Ingredient[]) {
-    this.ingredients.push(...ing);
-    this.ingChanged.next(this.ingredients.slice());
+    ing.forEach(value => {
+      this.addIngredient(value);
+    })
   }
 
   updateIngredient(index : number, NI : Ingredient) {

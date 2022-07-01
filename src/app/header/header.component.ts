@@ -10,6 +10,10 @@ export class HeaderComponent {
 
   constructor(private dss : DataStorageService) {}
 
+  onInit() {
+
+  }
+
   onSaveData() {
     this.dss.storeRecipes();
   }
