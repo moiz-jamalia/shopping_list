@@ -35,7 +35,6 @@ export class ShoppingListService {
     this.ingChanged.next(this.ingredients.slice());
   }
 
-
   addIngredients(ing : Ingredient[]) {
     ing.forEach(value => {
       this.addIngredient(value);
